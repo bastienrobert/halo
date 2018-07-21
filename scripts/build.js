@@ -18,20 +18,25 @@ const config = require('../config/webpack.config.prod')
 
 const protocol = process.env.HTTPS === 'true' ? 'https' : 'http'
 
-const useYarn = fs.existsSync(paths.yarnLockFile)
-
 const WARN_AFTER_BUNDLE_GZIP_SIZE = 512 * 1024
 const WARN_AFTER_CHUNK_GZIP_SIZE = 1024 * 1024
 
 fs.emptyDirSync(paths.appBuild)
-
 copyPublicFolder()
-
-const compiler = webpack(config)
+build()
 
 function copyPublicFolder() {
   fs.copySync(paths.appPublic, paths.appBuild, {
     dereference: true,
-    filter: file => file !== paths.appHtml,
-  });
+    filter: file => file !== paths.appHtml
+  })
+}
+
+function build() {
+  const compiler = webpack(config)
+  compiler.run((err, stats) => {
+    if (err) {
+      return reject(err)
+    }
+  })
 }

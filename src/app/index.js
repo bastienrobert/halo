@@ -1,7 +1,8 @@
-import { say } from 'helpers'
-import values from 'values'
-import i18n from 'locales'
-
+import { h, Component } from 'preact'
 import css from './styles.scss'
 
-say(i18n[values.locale].hello)
+export default class App extends Component {
+  render() {
+    return <h1 className={css.title}>Hello</h1>
+  }
+}

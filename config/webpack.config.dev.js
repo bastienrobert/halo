@@ -58,7 +58,18 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader',
-            options: { presets: ['@babel/preset-env'], cacheDirectory: true }
+            options: {
+              presets: [
+                '@babel/preset-env',
+                [
+                  '@babel/preset-react',
+                  {
+                    pragma: 'h'
+                  }
+                ]
+              ],
+              cacheDirectory: true
+            }
           },
           {
             loader: 'eslint-loader',

@@ -8,7 +8,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const getClientEnvironment = require('./env')
 
 // Webpack uses `publicPath` to determine where the app is being served from.
@@ -32,7 +32,7 @@ if (env.stringified['process.env'].NODE_ENV !== '"production"') {
   throw new Error('Production builds must have NODE_ENV=production.')
 }
 
-const cssFilename = 'static/css/[name].[contenthash:8].css'
+const cssFilename = 'static/css/[name].[hash:8].css'
 
 const extractTextPluginOptions = shouldUseRelativeAssetPaths
   ? { publicPath: Array(cssFilename.split('/').length).join('../') }
@@ -48,8 +48,8 @@ module.exports = {
   entry: [require.resolve('./polyfills'), paths.appIndexJs],
   output: {
     path: paths.appBuild,
-    filename: 'static/js/[name].[chunkhash:8].js',
-    chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
+    filename: 'static/js/[name].[hash:8].js',
+    chunkFilename: 'static/js/[name].[hash:8].chunk.js',
     publicPath: publicPath,
     devtoolModuleFilenameTemplate: info =>
       path.relative(paths.appSrc, info.absoluteResourcePath).replace(/\\/g, '/')
@@ -78,12 +78,23 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader',
-            options: { presets: ['@babel/preset-env'], cacheDirectory: true }
-          },
-          {
-            loader: 'eslint-loader',
-            options: { emitWarning: true }
+            options: {
+              presets: [
+                '@babel/preset-env',
+                [
+                  '@babel/preset-react',
+                  {
+                    pragma: 'h'
+                  }
+                ]
+              ],
+              compact: true
+            }
           }
+          // {
+          //   loader: 'eslint-loader',
+          //   options: { emitWarning: true }
+          // }
         ],
         exclude: /node_modules/,
         include: paths.appSrc
@@ -98,48 +109,71 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: [
-          {
-            loader: require.resolve('css-loader'),
-            options: {
-              modules: true,
-              localIdentName: '[name]__[local]___[hash:base64:5]',
-              importLoaders: 1,
-              minimize: true,
-              sourceMap: shouldUseSourceMap,
-              alias: {
-                src: path.resolve(__dirname, '../src')
-              }
-            }
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              includePaths: ['./src'],
-              data: '@import "config.scss";'
-            }
-          },
-          {
-            loader: require.resolve('postcss-loader'),
-            options: {
-              ident: 'postcss',
-              plugins: () => [
-                require('postcss-flexbugs-fixes'),
-                autoprefixer({
-                  browsers: [
-                    '>1%',
-                    'last 4 versions',
-                    'Firefox ESR',
-                    'not ie < 9'
-                  ],
-                  flexbox: 'no-2009'
-                })
+        loader: ExtractTextPlugin.extract(
+          Object.assign(
+            {
+              fallback: {
+                loader: require.resolve('style-loader'),
+                options: {
+                  hmr: false
+                }
+              },
+              use: [
+                {
+                  loader: require.resolve('css-loader'),
+                  options: {
+                    modules: true,
+                    sourceMap: true,
+                    localIdentName: '[name]__[local]___[hash:base64:5]',
+                    importLoaders: 1,
+                    minimize: true,
+                    sourceMap: shouldUseSourceMap,
+                    alias: {
+                      src: path.resolve(__dirname, '../src')
+                    }
+                  }
+                },
+                {
+                  loader: 'sass-loader',
+                  options: {
+                    includePaths: ['./src'],
+                    data: '@import "config.scss";'
+                  }
+                },
+                {
+                  loader: require.resolve('postcss-loader'),
+                  options: {
+                    ident: 'postcss',
+                    plugins: () => [
+                      require('postcss-flexbugs-fixes'),
+                      autoprefixer({
+                        browsers: [
+                          '>1%',
+                          'last 4 versions',
+                          'Firefox ESR',
+                          'not ie < 9'
+                        ],
+                        flexbox: 'no-2009'
+                      })
+                    ]
+                  }
+                }
               ]
-            }
-          }
-        ]
+            },
+            extractTextPluginOptions
+          )
+        )
       },
-      extractTextPluginOptions
+      {
+        loader: require.resolve('file-loader'),
+        // Exclude `js` files to keep "css" loader working as it injects
+        exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/, /\.scss$/],
+        options: {
+          name: 'static/media/[name].[hash:8].[ext]'
+        }
+      }
+      // ** STOP ** Are you adding a new loader?
+      // Make sure to add the new loader(s) before the "file" loader.
     ]
   },
   plugins: [
@@ -162,6 +196,7 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin(env.stringified),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new CaseSensitivePathsPlugin(),
     new ExtractTextPlugin({
       filename: cssFilename
@@ -186,11 +221,17 @@ module.exports = {
       navigateFallbackWhitelist: [/^(?!\/__).*/],
       staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/]
     }),
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new UglifyJSPlugin({
-      sourceMap: shouldUseSourceMap
-    })
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
   ],
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new UglifyJsPlugin({
+        sourceMap: shouldUseSourceMap,
+        warningsFilter: true
+      })
+    ]
+  },
   node: {
     dgram: 'empty',
     fs: 'empty',
