@@ -24,10 +24,7 @@ const env = getClientEnvironment(publicUrl)
 // The production configuration is different and lives in a separate file.
 module.exports = {
   mode: process.env.NODE_ENV,
-  entry: [
-    require.resolve('./polyfills'),
-    paths.appIndexJs
-  ],
+  entry: [require.resolve('./polyfills'), paths.appIndexJs],
   output: {
     pathinfo: true,
     filename: 'static/js/bundle.js',

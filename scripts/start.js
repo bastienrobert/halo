@@ -4,6 +4,7 @@ process.env.BABEL_ENV = 'development'
 process.env.NODE_ENV = 'development'
 
 const webpack = require('webpack')
+const opn = require('opn')
 const WebpackDevServer = require('webpack-dev-server')
 const paths = require('../config/paths')
 
@@ -31,5 +32,6 @@ const server = new WebpackDevServer(compiler, {
 })
 
 server.listen(8080, 'localhost', () => {
+  opn('http://localhost:8080')
   console.log('Starting server on http://localhost:8080')
 })
