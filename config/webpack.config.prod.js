@@ -228,7 +228,15 @@ module.exports = {
     minimizer: [
       new UglifyJsPlugin({
         sourceMap: shouldUseSourceMap,
-        warningsFilter: true
+        warningsFilter: true,
+        compress: {
+          warnings: false,
+          comparisons: false
+        },
+        output: {
+          comments: false,
+          ascii_only: false
+        }
       })
     ]
   },

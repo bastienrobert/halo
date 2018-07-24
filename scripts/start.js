@@ -9,28 +9,27 @@ const paths = require('../config/paths')
 
 const config = require('../config/webpack.config.dev')
 
-const protocol = process.env.HTTPS === 'true' ? 'https' : 'http'
+config.entry = [
+  'webpack-dev-server/client?http://localhost:8080',
+  'webpack/hot/dev-server',
+  ...config.entry
+]
 
 const compiler = webpack(config)
-const devServerOptions = Object.assign({}, config.devServer, {
-  stats: {
-    colors: true
-  },
-  hot: true,
+
+const server = new WebpackDevServer(compiler, {
   contentBase: paths.appPublic,
-  clientLogLevel: 'none',
-  watchContentBase: true,
   publicPath: config.output.publicPath,
+  inline: true,
+  hot: true,
+  open: true,
+  watchContentBase: true,
   quiet: true,
-  https: protocol === 'https',
+  historyApiFallback: true,
   overlay: true,
-  open: true
+  stats: { colors: true }
 })
 
-const server = new WebpackDevServer(compiler, devServerOptions).listen(
-  8080,
-  '127.0.0.1',
-  () => {
-    console.log('Starting server on http://localhost:8080')
-  }
-)
+server.listen(8080, 'localhost', () => {
+  console.log('Starting server on http://localhost:8080')
+})
