@@ -9,7 +9,6 @@ const opn = require('opn')
 const ip = require('ip')
 const chalk = require('chalk')
 const WebpackDevServer = require('webpack-dev-server')
-const CleanTerminalPlugin = require('clean-terminal-webpack-plugin')
 
 const paths = require('../config/paths')
 const config = require('../config/webpack.config.dev')
@@ -34,12 +33,16 @@ config.entry = [
   ...config.entry
 ]
 
-config.plugins.push(new CleanTerminalPlugin())
-
 const compiler = webpack(config)
 
 compiler.plugin('done', callback => {
-  callback.errors
+  // Clear the console
+  const clear = '\x1B[2J\x1B[3J\x1B[H'
+  const output = this.message ? clear + this.message + '\n\n' : clear
+  process.stdout.write(output)
+
+  callback.compilation.errors.length > 0 ||
+  callback.compilation.warnings.length > 0
     ? console.log(error('Failed to compile.'))
     : console.log(valid('Compiled successfully!'))
   console.log(message)
