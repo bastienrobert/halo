@@ -2198,6 +2198,10 @@ clean-css@4.1.x:
   dependencies:
     source-map "0.5.x"
 
+clean-terminal-webpack-plugin@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/clean-terminal-webpack-plugin/-/clean-terminal-webpack-plugin-1.0.1.tgz#70d25b845f1bd5254bd4f5e8351e752d21872b1f"
+
 cli-boxes@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/cli-boxes/-/cli-boxes-1.0.0.tgz#4fa917c3e59c94a004cd61f8ee509da651687143"

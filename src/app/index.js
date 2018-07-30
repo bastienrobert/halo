@@ -3,6 +3,11 @@ import css from './styles.scss'
 
 export default class App extends Component {
   render() {
-    return <h1 className={css.title}>Hi</h1>
+    return (
+      <div>
+        <h1 className={css.title}>Hello</h1>
+        <span>Hola</span>
+      </div>
+    )
   }
 }

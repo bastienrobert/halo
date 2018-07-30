@@ -25,10 +25,10 @@ const server = new WebpackDevServer(compiler, {
   hot: true,
   open: true,
   watchContentBase: true,
-  quiet: true,
+  noInfo: true,
   historyApiFallback: true,
-  overlay: true,
-  stats: { colors: true }
+  progress: true,
+  stats: 'minimal'
 })
 
 server.listen(8080, 'localhost', () => {

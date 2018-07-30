@@ -6,6 +6,15 @@ const paths = require('./paths')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const getClientEnvironment = require('./env')
+const CleanTerminalPlugin = require('clean-terminal-webpack-plugin')
+
+const message = `You can now view your project in the browser.
+
+Local:            http://localhost:8080/
+On Your Network:  ???
+
+Note that the development build is not optimized.
+To create a production build, use yarn build.`
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -140,7 +149,10 @@ module.exports = {
     new webpack.DefinePlugin(env.stringified),
     new webpack.HotModuleReplacementPlugin(),
     new CaseSensitivePathsPlugin(),
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new CleanTerminalPlugin({
+      message: message
+    })
   ],
   node: {
     dgram: 'empty',

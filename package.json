@@ -21,6 +21,7 @@
     "babel-eslint": "^8.2.6",
     "babel-loader": "^8.0.0-beta.4",
     "case-sensitive-paths-webpack-plugin": "^2.1.2",
+    "clean-terminal-webpack-plugin": "^1.0.1",
     "css-loader": "^0.28.11",
     "dotenv": "^6.0.0",
     "dotenv-expand": "^4.2.0",
