@@ -6,7 +6,6 @@ export default class App extends Component {
     return (
       <div>
         <h1 className={css.title}>Hello</h1>
-        <span>Hola</span>
       </div>
     )
   }
