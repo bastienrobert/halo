@@ -1,11 +1,36 @@
 # What a starter
 Static site starter with custom webpack config.
 
+## How to install?
+Clone the project (don't fork) using:
+```
+git clone --depth=1 git@github.com:bastienrobert/halo.git YOUR_PROJECT_NAME
+```
+
+Then, delete the `.git` and init a new:
+```
+cd YOUR_PROJECT_NAME
+rm -rf .git
+git init
+```
+
+Finally, don't forget to edit the package.json file, you should update:
+- The **name**
+- The **version**
+- The **description**
+- The **author**
+- And maybe, the **license**
+
+Everything is cool? Launch the development server using `npm start` or `yarn start`.
+
 ## Packages
 [Check the doc](https://github.com/bastienrobert/halo/wiki/Add-packages)
 
 ## Todo
 [Check Github projects](https://github.com/bastienrobert/halo/projects)
+
+## Build
+Build using `npm run build` or `yarn build`. The build files will be on `static/`. This dir is gitignored so don't worry!
 
 ## Contributing
 Please, before creating a pull request about a bug or a feature, create an issue about it.

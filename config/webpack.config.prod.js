@@ -229,13 +229,15 @@ module.exports = {
       new UglifyJsPlugin({
         sourceMap: shouldUseSourceMap,
         warningsFilter: true,
-        compress: {
-          warnings: false,
-          comparisons: false
-        },
-        output: {
-          comments: false,
-          ascii_only: false
+        uglifyOptions: {
+          compress: {
+            warnings: false,
+            comparisons: false
+          },
+          output: {
+            comments: false,
+            ascii_only: false
+          }
         }
       })
     ]
