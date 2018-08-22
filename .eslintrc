@@ -14,8 +14,9 @@
     "sourceType": "module"
   },
   "rules": {
+    "curly": "off",
     "no-console": "off",
     "strict": ["error", "global"],
-    "curly": "warn"
+    "jsx-quotes": "off"
   }
 }
