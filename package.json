@@ -1,6 +1,6 @@
 {
   "name": "Halo",
-  "version": "0.1.0-alpha",
+  "version": "0.1.0",
   "description": "Starter for SPA",
   "scripts": {
     "start": "node scripts/start.js",

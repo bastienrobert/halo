@@ -101,4 +101,5 @@ Must be one of the following (only uppercase):
 - FIX: A bug fix
 - PERF: A code change that improves performance
 - REFACTOR: A code change that neither fixes a bug nor adds a feature
+- RELEASE: On package.json version update
 - STYLE: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
