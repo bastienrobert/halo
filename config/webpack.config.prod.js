@@ -163,17 +163,7 @@ module.exports = {
             extractTextPluginOptions
           )
         )
-      },
-      {
-        loader: require.resolve('file-loader'),
-        // Exclude `js` files to keep "css" loader working as it injects
-        exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/, /\.scss$/],
-        options: {
-          name: 'static/media/[name].[hash:8].[ext]'
-        }
       }
-      // ** STOP ** Are you adding a new loader?
-      // Make sure to add the new loader(s) before the "file" loader.
     ]
   },
   plugins: [
