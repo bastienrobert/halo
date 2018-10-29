@@ -1,12 +1,10 @@
 @import '~reset-css/sass/reset';
 
-:global {
-  body {
-    background-color: $blue;
-  }
+body {
+  background-color: $blue;
 }
 
 .title {
   font-family: sans-serif;
-  color: #FFF;
+  color: #fff;
 }

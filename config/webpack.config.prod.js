@@ -74,27 +74,15 @@ module.exports = {
     strictExportPresence: true,
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js)$/,
         use: [
           {
             loader: 'babel-loader',
             options: {
-              presets: [
-                '@babel/preset-env',
-                [
-                  '@babel/preset-react',
-                  {
-                    pragma: 'h'
-                  }
-                ]
-              ],
+              presets: ['@babel/preset-env'],
               compact: true
             }
           }
-          // {
-          //   loader: 'eslint-loader',
-          //   options: { emitWarning: true }
-          // }
         ],
         exclude: /node_modules/,
         include: paths.appSrc
@@ -167,7 +155,7 @@ module.exports = {
       {
         loader: require.resolve('file-loader'),
         // Exclude `js` files to keep "css" loader working as it injects
-        exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/, /\.scss$/],
+        exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/],
         options: {
           name: 'static/media/[name].[hash:8].[ext]'
         }

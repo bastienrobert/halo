@@ -1,8 +1,5 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "standard-preact"
-  ],
+  "extends": ["eslint:recommended"],
   "env": {
     "browser": true,
     "commonjs": true,
@@ -16,7 +13,6 @@
   "rules": {
     "curly": "off",
     "no-console": "off",
-    "strict": ["error", "global"],
-    "jsx-quotes": "off"
+    "strict": ["error", "global"]
   }
 }

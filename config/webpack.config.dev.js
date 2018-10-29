@@ -54,20 +54,12 @@ module.exports = {
     strictExportPresence: true,
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js)$/,
         use: [
           {
             loader: 'babel-loader',
             options: {
-              presets: [
-                '@babel/preset-env',
-                [
-                  '@babel/preset-react',
-                  {
-                    pragma: 'h'
-                  }
-                ]
-              ],
+              presets: ['@babel/preset-env'],
               cacheDirectory: true
             }
           },
