@@ -38,7 +38,7 @@ module.exports = {
       // It is guaranteed to exist because we tweak it in `env.js`
       process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
     ),
-    extensions: ['.js', '.json', '.jsx'],
+    extensions: ['.js', '.json'],
     alias: {
       src: path.resolve(paths.appSrc),
       locales: path.resolve(paths.appSrc, 'locales'),

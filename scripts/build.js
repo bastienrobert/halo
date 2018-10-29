@@ -7,19 +7,11 @@ process.on('unhandledRejection', err => {
   throw err
 })
 
-const path = require('path')
-const chalk = require('chalk')
 const fs = require('fs-extra')
 const webpack = require('webpack')
-const WebpackDevServer = require('webpack-dev-server')
 const paths = require('../config/paths')
 
 const config = require('../config/webpack.config.prod')
-
-const protocol = process.env.HTTPS === 'true' ? 'https' : 'http'
-
-const WARN_AFTER_BUNDLE_GZIP_SIZE = 512 * 1024
-const WARN_AFTER_CHUNK_GZIP_SIZE = 1024 * 1024
 
 fs.emptyDirSync(paths.appBuild)
 copyPublicFolder()
