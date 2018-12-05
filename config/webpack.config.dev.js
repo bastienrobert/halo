@@ -44,6 +44,7 @@ module.exports = {
       locales: path.resolve(paths.appSrc, 'locales'),
       app: path.resolve(paths.appSrc, 'app'),
       config: path.resolve(paths.appSrc, 'config'),
+      pages: path.resolve(paths.appSrc, 'pages'),
       components: path.resolve(paths.appSrc, 'components'),
       values: path.resolve(paths.appSrc, 'values'),
       utils: path.resolve(paths.appSrc, 'utils'),
@@ -59,6 +60,14 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
+              plugins: [
+                [
+                  '@babel/plugin-transform-react-jsx',
+                  {
+                    pragma: 'Peti.createElement'
+                  }
+                ]
+              ],
               presets: ['@babel/preset-env'],
               cacheDirectory: true
             }
@@ -80,7 +89,7 @@ module.exports = {
         }
       },
       {
-        test: /\.scss$/,
+        test: [/\.css$/, /\.scss$/],
         use: [
           require.resolve('style-loader'),
           {

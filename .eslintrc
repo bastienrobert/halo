@@ -1,5 +1,5 @@
 {
-  "extends": ["eslint:recommended"],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
   "env": {
     "browser": true,
     "commonjs": true,
@@ -14,5 +14,10 @@
     "curly": "off",
     "no-console": "off",
     "strict": ["error", "global"]
+  },
+  "settings": {
+    "react": {
+      "pragma": "Peti"
+    }
   }
 }

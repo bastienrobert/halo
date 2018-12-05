@@ -1,3 +1,5 @@
 import App from 'app'
 
-new App()
+const container = document.getElementById('app')
+
+new App(container)

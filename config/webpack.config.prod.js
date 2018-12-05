@@ -65,6 +65,7 @@ module.exports = {
       app: path.resolve(paths.appSrc, 'app'),
       config: path.resolve(paths.appSrc, 'config'),
       components: path.resolve(paths.appSrc, 'components'),
+      pages: path.resolve(paths.appSrc, 'pages'),
       values: path.resolve(paths.appSrc, 'values'),
       utils: path.resolve(paths.appSrc, 'utils'),
       helpers: path.resolve(paths.appSrc, 'utils/helpers')
@@ -79,6 +80,14 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
+              plugins: [
+                [
+                  '@babel/plugin-transform-react-jsx',
+                  {
+                    pragma: 'Peti.createElement'
+                  }
+                ]
+              ],
               presets: ['@babel/preset-env'],
               compact: true
             }
@@ -96,7 +105,7 @@ module.exports = {
         }
       },
       {
-        test: /\.scss$/,
+        test: [/\.css$/, /\.scss$/],
         loader: ExtractTextPlugin.extract(
           Object.assign(
             {

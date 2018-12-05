@@ -9,13 +9,9 @@
   "author": "Bastien Robert",
   "license": "MIT",
   "dependencies": {
-    "@babel/polyfill": "^7.0.0-beta.54",
-    "promise": "^8.0.1",
-    "reset-css": "^4.0.1",
-    "whatwg-fetch": "^2.0.4"
-  },
-  "devDependencies": {
     "@babel/core": "^7.0.0-beta.54",
+    "@babel/plugin-transform-react-jsx": "^7.2.0",
+    "@babel/polyfill": "^7.0.0-beta.54",
     "@babel/preset-env": "^7.0.0-beta.54",
     "autoprefixer": "^9.0.0",
     "babel-eslint": "^8.2.6",
@@ -32,6 +28,7 @@
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-standard": "^3.1.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.11",
@@ -40,8 +37,12 @@
     "node-sass": "^4.8.3",
     "object-assign": "^4.1.1",
     "opn": "^5.3.0",
+    "page": "^1.11.3",
+    "peti": "^1.0.1-alpha",
     "postcss-flexbugs-fixes": "^4.0.0",
     "postcss-loader": "^2.1.6",
+    "promise": "^8.0.1",
+    "reset-css": "^4.0.1",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
     "sw-precache-webpack-plugin": "^0.11.5",
@@ -51,6 +52,7 @@
     "webpack-cli": "^2.0.14",
     "webpack-dev-server": "^3.1",
     "webpack-format-messages": "^2.0.3",
-    "webpack-manifest-plugin": "^2.0.3"
+    "webpack-manifest-plugin": "^2.0.3",
+    "whatwg-fetch": "^2.0.4"
   }
 }
